@@ -48,7 +48,7 @@ contains either control information or user data.
 
 
 */
-type packet struct {
+type Packet struct {
 	sourcePort      uint16
 	destinationPort uint16
 	verificationTag uint32
@@ -66,7 +66,7 @@ var (
 	errChecksumMismatch            = errors.New("checksum mismatch theirs")
 )
 
-func (p *packet) unmarshal(raw []byte) error {
+func (p *packet) Unmarshal(raw []byte) error {
 	if len(raw) < packetHeaderSize {
 		return fmt.Errorf("%w: raw only %d bytes, %d is the minimum length", errPacketRawTooSmall, len(raw), packetHeaderSize)
 	}
@@ -134,7 +134,7 @@ func (p *packet) unmarshal(raw []byte) error {
 	return nil
 }
 
-func (p *packet) marshal() ([]byte, error) {
+func (p *packet) Marshal() ([]byte, error) {
 	raw := make([]byte, packetHeaderSize)
 
 	// Populate static headers
